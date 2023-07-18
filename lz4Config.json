@@ -1,0 +1,6 @@
+{
+    "apiUrl": "https://api.dreams.example.com",
+    "accessToken": "YOUR_ACCESS_TOKEN",
+    "outputDirectory": "/path/to/output/directory",
+    "outputFileName": "exported_blob.bin"
+  }  
