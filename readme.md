@@ -24,7 +24,8 @@ summary of the changes made to the files below.
    - Specified the project's metadata, including its name and version.
    - Listed the required dependencies (`express`, `body-parser`, and `mongoose`) along with their versions.
   
-5. added the blob data exportation feature enabling users to export and download
+5. **blobexporter.ts**
+   -added the blob data exportation feature enabling users to export and download
  blob data via the indreams.me api url
 
 These changes collectively establish a basic Express.js server that handles API requests for dreams. The server initializes the required modules, sets up the database connection, and defines the routes for interacting with dreams through GET and POST requests.
