@@ -4,11 +4,11 @@
 
 API proxy & reverse-engineering notes for Media Molecule's [Dreams](https://www.playstation.com/en-gb/games/dreams-ps4/); a rad user-generated-content game on the PS4.
 
-Currently consists of a NodeJS [indreams.me](https://indreams.me/) API proxy that handles auth headers for you, plus some [documentation](https://github.com/jaames/dreams-api/wiki/Indreams-API)
-
 ## Motivation
 
-The Dreams community is incredible, although the lack of export/backup options concerns me a little bit considering the sheer number of hours that people have put into making content. It would be a damn shame if Sony decided to pull the plug on all of these wonderful creations one day - so my ultimate goal is finding a way to download level data before then!
+The Dreams community is incredible, although the lack of export/backup options concerns me a little bit considering the sheer number of hours that people have put into making content. Its a damn shame that Sony decided to pull the plug on dreams server support - so my ultimate goal is finding a way to download level data before the gamegoes offline entirely as it's only a Metter of time now.
+
+more doc's coming soon.
 
 ## Proxy Setup
 
