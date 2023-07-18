@@ -1,12 +1,45 @@
 import axios from 'axios';
 import fs from 'fs';
 import { lz4 } from 'lz4';
+import path from 'path';
 
-// Assume you have an access token for authentication
-const accessToken = 'YOUR_ACCESS_TOKEN';
+// Configuration options
+interface ConfigOptions {
+  apiUrl: string;
+  accessToken: string;
+  outputDirectory: string;
+  outputFileName: string;
+}
 
-// Define the URL of the Dreams API server
-const apiUrl = 'https://api.dreams.example.com';
+// Default configuration values
+const defaultConfig: ConfigOptions = {
+  apiUrl: 'https://api.dreams.example.com',
+  accessToken: 'YOUR_ACCESS_TOKEN',
+  outputDirectory: __dirname,
+  outputFileName: 'exported_blob.bin',
+};
+
+// Load configuration from file or use default values
+function loadConfig(): ConfigOptions {
+  const configFilePath = path.join(__dirname, 'config.json');
+
+  if (fs.existsSync(configFilePath)) {
+    // Configuration file exists, load and parse it
+    const configFileData = fs.readFileSync(configFilePath, 'utf-8');
+    return JSON.parse(configFileData) as ConfigOptions;
+  } else {
+    // Configuration file doesn't exist, use default values
+    return defaultConfig;
+  }
+}
+
+// Save configuration to file
+function saveConfig(config: ConfigOptions): void {
+  const configFilePath = path.join(__dirname, 'config.json');
+  const configData = JSON.stringify(config, null, 2);
+
+  fs.writeFileSync(configFilePath, configData, 'utf-8');
+}
 
 // Function to decompress LZ4 data
 function decompressLZ4(data: Buffer): Buffer {
@@ -17,12 +50,12 @@ function decompressLZ4(data: Buffer): Buffer {
 }
 
 // Function to export blob data from the server
-async function exportBlobData() {
+async function exportBlobData(config: ConfigOptions) {
   try {
     // Make a GET request to fetch the blob data
-    const response = await axios.get(`${apiUrl}/blob`, {
+    const response = await axios.get(`${config.apiUrl}/blob`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${config.accessToken}`,
       },
       responseType: 'arraybuffer',
     });
@@ -33,13 +66,15 @@ async function exportBlobData() {
       const decompressedData = decompressLZ4(Buffer.from(response.data));
 
       // Save the decompressed blob data to a file
-      fs.writeFileSync('decompressed_blob.bin', decompressedData);
+      const outputFile = path.join(config.outputDirectory, 'decompressed_blob.bin');
+      fs.writeFileSync(outputFile, decompressedData);
 
       console.log('LZ4 data decompressed successfully!');
     } else {
       // Save the blob data to a file
       const blobData = Buffer.from(response.data, 'binary');
-      fs.writeFileSync('exported_blob.bin', blobData);
+      const outputFile = path.join(config.outputDirectory, config.outputFileName);
+      fs.writeFileSync(outputFile, blobData);
 
       console.log('Blob data exported successfully!');
     }
@@ -48,5 +83,14 @@ async function exportBlobData() {
   }
 }
 
-// Call the exportBlobData function to initiate the export
-exportBlobData();
+// Main function to export blob data
+function main() {
+  // Load configuration
+  const config = loadConfig();
+
+  // Export blob data using the configuration
+  exportBlobData(config);
+}
+
+// Call the main function to initiate the export
+main();
