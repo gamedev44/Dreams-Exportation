@@ -1,4 +1,5 @@
+the blob exporter depends on the lz4 config.json to work properly. if you want to know more about the blob exporter and what it does 
+then
 go here please:
-
 
 https://pastebin.com/CnhNMtGz
