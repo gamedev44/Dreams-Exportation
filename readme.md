@@ -1,6 +1,6 @@
 ##Dreams Api Continuation Project
 
-#This is a fan-made Continuation project of the original Dreams api project by james Without him none of us including me would be here domg this.
+#This is a fan-made Continuation project of the original Dreams api project by james Without him none of us including me would be here doing this.
 
 
 ## Changes made by Mr.Asterisk
