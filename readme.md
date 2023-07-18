@@ -26,8 +26,14 @@ summary of the changes made to the files below.
   
 5. **blobexporter.ts**
  
-    - added the blob data exportation feature enabling users to export and download
- blob data via the indreams.me api url
+    - updated the blob data exportation feature from my last commit now enabling users to export and download
+ blob data via the indreams.me api url and now it automatically decompresses the data as well as
+auto-checks for multiple lz4 data streams and if so treats them as a single unit/asset for decompression and exportation.
+
+6. **lz4Config.Json**
+
+   - added the configuration .json file for handling the configuration and setup of how lz4 data streams are handled
+  when not using the default script from blobexporter.ts .
 
 These changes collectively establish a basic Express.js server that handles API requests for dreams. The server initializes the required modules, sets up the database connection, and defines the routes for interacting with dreams through GET and POST requests.
 
