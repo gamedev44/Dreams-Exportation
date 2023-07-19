@@ -1,0 +1,18 @@
+Sound Problems in Dreams
+
+Dreams uses a granular engine to play audio, which can sometimes lead to problems such as sounds cutting out, getting distorted, or playing with a delay.
+
+**Table 1: Problems and Solutions**
+
+         go here to view the table
+
+    https://docs.google.com/spreadsheets/d/1-1zO29VkWm1XrEPstLhm6zsN2YUa4SGd-u5PTj2D-Xo/edit?usp=sharing                    
+
+**Additional Information**
+
+* **Slice information:** Dreams audio is made up of slices, which are small chunks of audio data. The number of slices in a sound determines its audio cost.
+* **Sample information:** Dreams audio samples are the original audio files that are used to create slices. The quality of the sample will affect the sound quality of the slice.
+* **Timeline information:** The timeline is a graph that shows the timing of all of the sounds in your creation. If sounds are overlapping on the timeline, this can cause them to play with a delay.
+* **Dreams audio file format:** Dreams audio files are in the .dat9 format. This format is optimized for use with Dreams and allows for high-quality audio playback.
+* **Importing audio from other formats:** Dreams can import audio from a variety of formats, including MP3, WMV, and WAV. When you import audio from another format, it is converted into the .dat9 format.
+* **Exporting audio:** Dreams can export audio in a variety of formats, including MP3, WMV, and WAV. When you export audio, it is converted from the .dat9 format to the selected format.
