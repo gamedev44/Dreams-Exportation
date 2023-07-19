@@ -35,6 +35,19 @@ auto-checks for multiple lz4 data streams and if so treats them as a single unit
    - added the configuration .json file for handling the configuration and setup of how lz4 data streams are handled
   when not using the default script from blobexporter.ts .
 
+7. **audio-porter.ts**
+
+ - added the ability to import and export audio via exploitation of the audio importer.
+
+8. **audioconvertConfig.Json**
+
+ - adds the configuration seetings needed for the audio-porter.ts script to work properly
+
+9. **audioporter.html**
+
+   -added the interface for interacting with , sending & recieving | importing and exporting audio from dreams. 
+ 
+
 These changes collectively establish a basic Express.js server that handles API requests for dreams. The server initializes the required modules, sets up the database connection, and defines the routes for interacting with dreams through GET and POST requests.
 
 ## Motivation
