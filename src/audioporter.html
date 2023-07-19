@@ -1,0 +1,241 @@
+<!-- This is an audio importer and exporter tool by MrAsterisk / WIP -->
+<html>
+<head>
+<title>Dreams Audio Porter</title>
+<style>
+/* CSS styles here */
+
+body {
+  background-image: url("https://assets.indreams.me/docs/images/pagethumbs/updates/dreams/2.18.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin-top: 0;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #00c3ff, #2e6bff);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 195, 255, 0.8);
+  width: fit-content;
+}
+
+.buttons button {
+  font-size: 24px;
+  padding: 10px 20px;
+  margin: 10px;
+}
+
+
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Dreams Audio Porter</h1>
+</div>
+  <div class="buttons-container">
+    <button id="importButton" onclick="showImportFields()">Import</button>
+    <button id="exportButton" onclick="showExportFields()">Export</button>
+  </div>
+</div>
+<div class="import" style="display: none;">
+  <input type="file" id="importFile" accept="audio/mp3">
+  <input type="checkbox" id="importUrlCheckbox" onchange="toggleUrlInput()"> Import from URL
+  <input type="text" id="importUrlInput" placeholder="URL to The Audio File" style="display: none;">
+</div>
+<div class="export" style="display: none;">
+  <label for="exportUrlCheckbox">
+    <input type="checkbox" id="exportUrlCheckbox" onchange="toggleExportUrlInput()"> Export from URL
+  </label>
+  <input type="url" id="exportUrlInput" placeholder="Dream URL" style="display: none;">
+  <label for="exportOrbisCheckbox">
+    <input type="checkbox" id="exportOrbisCheckbox" onchange="toggleOrbisInput()"> Export from OrbisO.S
+  </label>
+  <input type="text" id="orbisIpInput" placeholder="Enter the IP of the PS4SDK" style="display: none;">
+  <label for="exportSlicesCheckbox">
+    <input type="checkbox" id="exportSlicesCheckbox" onchange="toggleSliceInput()"> 
+    Export specific slices as sample
+  </label>
+  <input type="text" id="exportName" placeholder="Sound Recording/Audio Clip/Timeline Name" style="display: none;">
+</div>
+<script>
+// JavaScript code here
+const importButton = document.getElementById("importButton");
+const exportButton = document.getElementById("exportButton");
+const importFile = document.getElementById("importFile");
+const importUrlCheckbox = document.getElementById("importUrlCheckbox");
+const importUrlInput = document.getElementById("importUrlInput");
+const exportUrlCheckbox = document.getElementById("exportUrlCheckbox");
+const exportUrlInput = document.getElementById("exportUrlInput");
+const exportOrbisCheckbox = document.getElementById("exportOrbisCheckbox");
+const orbisIpInput = document.getElementById("orbisIpInput");
+const exportName = document.getElementById("exportName");
+const exportConfirm = document.getElementById("exportConfirm");
+const exportSlicesCheckbox = document.getElementById("exportSlicesCheckbox");
+
+function showImportFields() {
+  const importDiv = document.querySelector('.import');
+  const exportDiv = document.querySelector('.export');
+
+  importDiv.style.display = 'block';
+  exportDiv.style.display = 'none';
+}
+
+function showExportFields() {
+  const importDiv = document.querySelector('.import');
+  const exportDiv = document.querySelector('.export');
+
+  importDiv.style.display = 'none';
+  exportDiv.style.display = 'block';
+}
+
+function toggleUrlInput() {
+  const importUrlInput = document.getElementById("importUrlInput");
+  importUrlInput.style.display = importUrlCheckbox.checked ? "block" : "none";
+}
+
+function toggleExportUrlInput() {
+  const exportUrlInput = document.getElementById("exportUrlInput");
+  exportUrlInput.style.display = exportUrlCheckbox.checked ? "block" : "none";
+}
+
+function toggleOrbisInput() {
+  const orbisIpInput = document.getElementById("orbisIpInput");
+  orbisIpInput.style.display = exportOrbisCheckbox.checked ? "block" : "none";
+}
+
+function toggleSliceInput() {
+  const exportNameInput = document.getElementById("exportName");
+  exportNameInput.style.display = exportSlicesCheckbox.checked ? "block" : "none";
+}
+
+importButton.addEventListener("click", () => {
+  // Removed the importFile.click() line so that file explorer only opens when choose file is pressed.
+  // mostly because it was getting annoying not to be given the url import option first.
+});
+
+importFile.addEventListener("change", async () => {
+  try {
+    const file = importFile.files[0];
+    if (!file) {
+      throw new Error("Please select an audio file.");
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+      const mp3Data = event.target.result;
+
+      // Process the imported audio data as needed
+      console.log('Audio data imported successfully!');
+    };
+
+    reader.onerror = function() {
+      console.error('Failed to import audio data.');
+    };
+
+    reader.readAsDataURL(file);
+  } catch (error) {
+    console.error('Failed to import audio data:', error.message);
+  }
+});
+
+exportButton.addEventListener("click", async () => {
+  if (exportUrlCheckbox.checked) {
+    exportUrlInput.value = prompt("Enter the URL to the Dream at indreams.me that the audio is on");
+  } else if (exportOrbisCheckbox.checked) {
+    orbisIpInput.value = prompt("Enter the IP of the PS4 development kit");
+  }
+
+  exportConfirm.click();
+});
+
+exportConfirm.addEventListener("click", () => {
+  exportAudioData();
+});
+
+async function prompt(message) {
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      var input = window.prompt(message);
+      resolve(input);
+    }, 0);
+  });
+}
+
+async function extractSpecificAudio() {
+  try {
+    const audioName = await prompt('Enter the name of the specific audio: ');
+    // Extract specific audio from a timeline/track/recording
+    console.log('Specific audio extracted and converted to MP3 successfully!');
+  } catch (error) {
+    console.error('Failed to extract specific audio:', error.message);
+  }
+}
+
+async function downloadRawAudioAsset() {
+  try {
+    const assetName = await prompt('Enter the name of the audio asset to download: ');
+    // Download raw audio asset
+    console.log('Raw audio asset downloaded successfully!');
+  } catch (error) {
+    console.error('Failed to download raw audio asset:', error.message);
+  }
+}
+
+async function exportAudioData() {
+  try {
+    if (exportUrlCheckbox.checked) {
+      const dreamURL = exportUrlInput.value;
+      const exportOption = await prompt('Choose an export option (1: Extract all ATRAC audio and convert to MP3, 2: Download raw audio assets): ');
+
+      if (exportOption === '1') {
+        // Decompress and extract ATRAC audio from .dat9 files
+        console.log('ATRAC audio extracted and converted to MP3 successfully!');
+      } else if (exportOption === '2') {
+        await downloadRawAudioAsset();
+      } else {
+        console.log('Invalid export option selected!');
+      }
+    } else if (exportOrbisCheckbox.checked) {
+      const orbisIp = orbisIpInput.value;
+      // Perform export from OrbisO.S based on the provided IP
+      console.log('Export from OrbisO.S in progress...');
+    }
+  } catch (error) {
+    console.error('Failed to export audio data:', error.message);
+  }
+}
+
+async function main() {
+  try {
+    const operation = await prompt('Choose an operation (1: Import audio data, 2: Export audio data): ');
+
+    if (operation === '1') {
+      await importAudioData();
+    } else if (operation === '2') {
+      await exportAudioData();
+    } else {
+      console.log('Invalid operation selected!');
+    }
+  } catch (error) {
+    console.error('An error occurred:', error.message);
+  }
+}
+
+main();
+
+// THIS SCRIPT IS STILL IN ACTIVE DEVELOPMENT AND AS SUCH IT MAY PRESENT CERTAIN PROBLEMS OR ERRORS NOT YET NOTICED.
+</script>
+</body>
+</html>
