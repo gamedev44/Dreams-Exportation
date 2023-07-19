@@ -1,0 +1,5 @@
+{
+    "allowedFormats": ["mp3", "wav", "ogg", "flac"],
+    "outputFormat": "dat9"
+  }
+  
